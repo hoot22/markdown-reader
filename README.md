@@ -43,7 +43,7 @@
 
 仓库不包含 `addons/`。克隆后必须先补齐两个插件，再启动编辑器；否则 GDExtension 与主题插件都加载不上，Markdown 渲染不可用。
 
-**前置要求**：Godot 4.7.x、Git；若要自行编译 docrender，另需 SCons 与 godot-cpp。
+**前置要求**：Godot 4.7.x、Git；若要自行编译 docrender，另需 Python、SCons（`python -m pip install scons`）、MSVC 与 Windows SDK。`godot-cpp` 等依赖由子模块提供，不需要单独安装。
 
 **第 1 步：克隆仓库**
 
@@ -65,13 +65,28 @@ git clone https://github.com/LuYingYiLong/godot-docrender.git
 
 GDExtension 的库按 `template_debug` / `template_release` 严格匹配，不会跨 target 回退。只放 release 库时，debug 版编辑器会报 `No Godot GDExtension library found`，`MarkdownLabel`、`PDFTexture` 等类和编辑器插件全部不会注册。
 
-上游只提供源码时需自行编译，产物直接落在 `addons/docrender/bin/`：
+上游只提供源码时需自行编译。进入上游仓库后先拉取子模块，`godot-cpp`、litehtml、MicroTeX、tinyxml2 都在子模块里，未初始化时 SCons 会直接构建失败：
+
+```bash
+cd godot-docrender
+git submodule update --init --recursive
+```
+
+再装可选 SDK。缺 PDFium SDK 时 `bin/pdfium.dll` 不会被生成，`PDFTexture` 等 PDF 相关类注册失败；缺 Merman SDK 时 Mermaid 代码块无法渲染：
+
+```bash
+python scripts/fetch_pdfium_sdk.py
+python scripts/fetch_merman_sdk.py
+```
+
+然后两种 target 各编一次，产物直接落在上游仓库的 `addons/docrender/bin/`：
 
 ```bash
 scons godot-docrender platform=windows target=template_debug arch=x86_64
+scons godot-docrender platform=windows target=template_release arch=x86_64
 ```
 
-其他平台替换 `platform` / `arch`；`template_debug` 与 `template_release` 两种 target 都要编。
+其他平台替换 `platform` / `arch`。`template_debug` 供编辑器和 debug 导出使用，`template_release` 供 release 导出使用，两者互不替代 —— 只编其中一种，另一种场景仍会报 `No Godot GDExtension library found`。编完先按上文两条检查项核对库文件，再把整个 `addons/docrender/` 复制进本项目。
 
 **第 3 步：安装 StyleboxFancy**
 
