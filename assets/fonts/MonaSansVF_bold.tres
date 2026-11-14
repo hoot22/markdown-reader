@@ -1,11 +1,11 @@
-[gd_resource type="FontVariation" format=3]
+[gd_resource type="FontVariation" format=3 uid="uid://br3dox0ipvwhw"]
 
 [ext_resource type="FontFile" uid="uid://p8dve3hj4wpk" path="res://assets/fonts/variable/MonaSansVF[opsz,wght].ttf" id="1_mona"]
 [ext_resource type="FontFile" uid="uid://d1ug20m51s0ma" path="res://assets/fonts/SimplifiedChineseHW/SourceHanSansHWSC-Bold.otf" id="2_scb"]
 
 [resource]
+fallbacks = Array[Font]([ExtResource("2_scb")])
 base_font = ExtResource("1_mona")
 variation_opentype = {
 "wght": 700.0
 }
-fallbacks = Array[Font]([ExtResource("2_scb")])

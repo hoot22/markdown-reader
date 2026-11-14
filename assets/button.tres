@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://cx44hebjla23k"]
 
-[ext_resource type="FontVariation" path="res://assets/fonts/MonaSansVF_sc.tres" id="1_6pma3"]
+[ext_resource type="FontVariation" uid="uid://b2u305a53vjax" path="res://assets/fonts/MonaSansVF_sc.tres" id="1_6pma3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eskgu"]
 bg_color = Color(0.9019608, 0.9019608, 0.9019608, 1)
