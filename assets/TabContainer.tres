@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://c4aod53acxvla"]
 
-[ext_resource type="FontFile" uid="uid://p8dve3hj4wpk" path="res://assets/fonts/variable/MonaSansVF[opsz,wght].ttf" id="1_obnsm"]
+[ext_resource type="FontVariation" path="res://assets/fonts/MonaSansVF_sc.tres" id="1_obnsm"]
 
 [sub_resource type="StyleBox" id="StyleBox_48kj0"]
 resource_local_to_scene = false

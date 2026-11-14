@@ -1,8 +1,11 @@
 [gd_resource type="Theme" format=3 uid="uid://gehy1u476px6"]
 
-[ext_resource type="FontFile" uid="uid://p8dve3hj4wpk" path="res://assets/fonts/variable/MonaSansVF[opsz,wght].ttf" id="1_hgv2j"]
+[ext_resource type="FontVariation" uid="uid://b2u305a53vjax" path="res://assets/fonts/MonaSansVF_sc.tres" id="1_hgv2j"]
+[ext_resource type="FontVariation" path="res://assets/fonts/MonaSansVF_bold.tres" id="2_bold"]
+[ext_resource type="FontVariation" path="res://assets/fonts/MonaSansMono.tres" id="3_mono"]
 
 [resource]
+default_font_size = 18
 BodyLabel/base_type = &"Label"
 BodyLabel/colors/font_color = Color(0.627451, 0.627451, 0.627451, 1)
 BodyLabel/font_sizes/font_size = 16
@@ -18,6 +21,12 @@ HeaderLabel/fonts/font = ExtResource("1_hgv2j")
 Label/colors/font_color = Color(0.627451, 0.627451, 0.627451, 1)
 Label/font_sizes/font_size = 24
 Label/fonts/font = ExtResource("1_hgv2j")
+MarkdownLabel/colors/text_font_color = Color(0.117647, 0.117647, 0.12549, 1)
+MarkdownLabel/font_sizes/text_font_size = 18
+MarkdownLabel/fonts/bold_font = ExtResource("2_bold")
+MarkdownLabel/fonts/code_block_font = ExtResource("3_mono")
+MarkdownLabel/fonts/code_text_font = ExtResource("3_mono")
+MarkdownLabel/fonts/text_font = ExtResource("1_hgv2j")
 SubtitleLabel/base_type = &"Label"
 SubtitleLabel/colors/font_color = Color(0.627451, 0.627451, 0.627451, 1)
 SubtitleLabel/font_sizes/font_size = 16

@@ -31,18 +31,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
+theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_bottom = 15
 
-[node name="MarkdownLabel" type="MarkdownLabel" parent="Panel/MarginContainer" unique_id=656209825]
-parse_mermaid = true
-context_menu_enabled = true
-unique_name_in_owner = true
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=1512166182]
 layout_mode = 2
-theme = ExtResource("2_vhvs7")
 
-[node name="Button" type="Button" parent="Panel/MarginContainer" unique_id=1927221709]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=2056527931]
+layout_mode = 2
+alignment = 2
+
+[node name="Button" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1927221709]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
@@ -51,4 +51,12 @@ size_flags_vertical = 0
 theme = ExtResource("3_b6fi6")
 text = "UI_back"
 
-[connection signal="pressed" from="Panel/MarginContainer/Button" to="." method="_on_button_pressed"]
+[node name="MarkdownLabel" type="MarkdownLabel" parent="Panel/MarginContainer/VBoxContainer" unique_id=656209825]
+parse_mermaid = true
+context_menu_enabled = true
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_vhvs7")
+
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]

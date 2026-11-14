@@ -1,0 +1,8 @@
+[gd_resource type="FontVariation" format=3 uid="uid://b2u305a53vjax"]
+
+[ext_resource type="FontFile" uid="uid://p8dve3hj4wpk" path="res://assets/fonts/variable/MonaSansVF[opsz,wght].ttf" id="1_mona"]
+[ext_resource type="FontFile" uid="uid://u7kpidcvcbxc" path="res://assets/fonts/SimplifiedChineseHW/SourceHanSansHWSC-Regular.otf" id="2_sc"]
+
+[resource]
+fallbacks = Array[Font]([ExtResource("2_sc")])
+base_font = ExtResource("1_mona")

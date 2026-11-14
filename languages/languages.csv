@@ -2,3 +2,9 @@ keys,en,zh_CN
 UI_back,back,返回
 UI_choose_file,Open File,选择文件打开
 UI_quit,quit,退出
+UI_confirm,confirm,确定
+UI_open,Open，打开
+ALERT_FILE_TOO_LARGE_MSG,File size exceeds 8MB limit,cannot load.,文件大小超过了 8MB 的限制，无法加载。
+ALERT_FILE_TOO_LARGE_TITLE,File Too Large,文件过大
+ALERT_WRONG_FORMAT_MSG,Please drop a .md or .markdown file.,请拖入 .md 或 .markdown 格式的文件。
+ALERT_WRONG_FORMAT_TITLE,Unsupported Format,格式不支持
