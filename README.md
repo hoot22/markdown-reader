@@ -1,10 +1,10 @@
-# Markdown Read
+# Markdown Reader
 
-用 Godot 4.7 写的桌面 Markdown 阅读器：选中一个 `.md` 文件，就能以渲染后的样式阅读。
+用 Godot 4.7 写的Windows Markdown 阅读器：打开一个 `.md` 文件，就能以渲染后的样式阅读。
 
 ## 功能
 
-- 启动进入主界面，点击按钮弹出文件对话框选择 Markdown 文件
+- 启动进入主界面，支持通过点击文件选择按钮/拖放/命令行打开.md文件
 - 读取文件内容后存入 `Content` 自动加载单例，并切换到阅读场景
 - 阅读场景用 docrender 提供的 `MarkdownLabel` 渲染正文，可滚动阅读
 - 阅读页提供返回按钮回到主界面，主界面提供退出按钮
@@ -33,14 +33,59 @@
 | docrender | <https://github.com/LuYingYiLong/godot-docrender> | GDExtension，提供 `MarkdownLabel` 节点与 Markdown 导入器，负责正文渲染 |
 | StyleboxFancy | <https://github.com/MellowDye/StyleBoxFancy> | 提供 `StyleBoxFancy` 资源类型与编辑器工具，负责界面样式（本项目使用 1.3.5） |
 
-安装方式：
+## 安装
 
-1. **docrender** —— 取得与 Godot 4.7 匹配的构建，放到 `addons/docrender/`。目录下必须同时具备 `.gdextension`、`bin/` 中的平台库和 `bin/pdfium.dll`；GDExtension 按 `template_debug` / `template_release` 严格匹配库文件，不会跨回退。
-2. **StyleboxFancy** —— 把上游的 `addons/StyleboxFancy/` 复制到本项目同名路径；`project.godot` 的 `[editor_plugins]` 已启用它。
+### github releases
 
-## 运行
+从[github releases](https://github.com/hoot22/markdown-reader/releases/latest)下载`markdown-reader.zip`文件，解压后运行`markdown-read.exe`
 
-用 Godot 4.7.x 打开 `project.godot`，按 F5 运行。项目使用 `mobile` 渲染器，未申请任何特殊输入映射。
+### 源码运行
+
+仓库不包含 `addons/`。克隆后必须先补齐两个插件，再启动编辑器；否则 GDExtension 与主题插件都加载不上，Markdown 渲染不可用。
+
+**前置要求**：Godot 4.7.x、Git；若要自行编译 docrender，另需 SCons 与 godot-cpp。
+
+**第 1 步：克隆仓库**
+
+```bash
+git clone https://github.com/hoot22/markdown-reader.git
+cd markdown-reader
+```
+
+**第 2 步：安装 docrender**
+
+```bash
+git clone https://github.com/LuYingYiLong/godot-docrender.git
+```
+
+把上游的 `addons/docrender/` 整体复制到本项目同名路径，然后确认两件事：
+
+- `docrender.gdextension` 中声明的当前平台库存在。Windows 下是 `bin/docrender.windows.template_debug.x86_64.dll` 与 `bin/docrender.windows.template_release.x86_64.dll`
+- `bin/pdfium.dll` 存在，`[dependencies]` 里的 `docrender_pdf_reader` 依赖它
+
+GDExtension 的库按 `template_debug` / `template_release` 严格匹配，不会跨 target 回退。只放 release 库时，debug 版编辑器会报 `No Godot GDExtension library found`，`MarkdownLabel`、`PDFTexture` 等类和编辑器插件全部不会注册。
+
+上游只提供源码时需自行编译，产物直接落在 `addons/docrender/bin/`：
+
+```bash
+scons godot-docrender platform=windows target=template_debug arch=x86_64
+```
+
+其他平台替换 `platform` / `arch`；`template_debug` 与 `template_release` 两种 target 都要编。
+
+**第 3 步：安装 StyleboxFancy**
+
+从 [StyleBoxFancy](https://github.com/MellowDye/StyleBoxFancy) 取 `addons/StyleBoxFancy/`，放到本项目并保持目录名为 `addons/StyleboxFancy/`（第二个 `b` 小写）。`project.godot` 的 `[editor_plugins]` 已启用 `res://addons/StyleboxFancy/plugin.cfg`，目录名大小写不一致会导致插件加载失败。
+
+**第 4 步：启动与自检**
+
+用 Godot 4.7.x 打开 `project.godot`，等首次导入结束后确认：
+
+- 输出面板没有 `No Godot GDExtension library found` 或 `Failed loading resource` 一类插件相关错误
+- 新建节点时能搜到 `MarkdownLabel`，说明 docrender 已注册
+- 项目设置 → 插件 中 `StyleboxFancy` 处于启用状态
+
+按 F5 运行，主场景为 `main.tscn`。
 
 ## 已知限制
 
