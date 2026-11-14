@@ -24,8 +24,6 @@
 | `languages/` | 翻译源 `languages.csv` 及导出的 `.translation` |
 | `export_presets.cfg` | Windows Desktop 导出预设 |
 
-`.godot/`、`.build/` 与 Daedalus 缓存目录不入库，首次用编辑器打开项目时会自动重建 `.godot/`。
-
 ## 依赖的第三方插件
 
 本仓库**不包含** `addons/` 目录。克隆后需要按下面两个上游仓库自行安装，否则编辑器插件和 Markdown 渲染都不可用。
