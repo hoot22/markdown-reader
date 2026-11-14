@@ -1,5 +1,6 @@
 extends Control
 
+const TextCodec: GDScript = preload("res://text_codec.gd")
 const MAX_BYTES: int = 8 * 1024 * 1024
 const MARKDOWN_EXTENSIONS: Array[String] = ["md", "markdown"]
 
@@ -44,7 +45,7 @@ func _on_file_selected(path: String) -> void:
 		file.close()
 		OS.alert(tr("ALERT_FILE_TOO_LARGE_MSG"), tr("ALERT_FILE_TOO_LARGE_TITLE"))
 		return
-	var content: String = file.get_as_text()
+	var content: String = TextCodec.decode(file.get_buffer(file_size))
 	file.close()
 	Content.markdown_content = content
 	get_tree().change_scene_to_file("res://read.tscn")

@@ -9,6 +9,7 @@
 - 阅读场景用 docrender 提供的 `MarkdownLabel` 渲染正文，可滚动阅读
 - 阅读页提供返回按钮回到主界面，主界面提供退出按钮
 - 界面样式使用 StyleboxFancy 资源与本地字体，内置 zh_CN / en 两种界面语言
+- 读取时自动识别编码，UTF-8、UTF-16 与 GBK 编码的 `.md` 都能正常显示（详见[文件编码](#文件编码)）
 
 ## 目录结构
 
@@ -18,9 +19,10 @@
 | `content.gd` | 自动加载单例 `Content`，暂存待阅读的 Markdown 文本 |
 | `control.gd` | 主界面逻辑：打开文件对话框、读取文件、切换场景、退出 |
 | `read.gd` | 阅读界面逻辑：把 `Content.markdown_content` 交给 `MarkdownLabel` 显示 |
+| `text_codec.gd` | 编码探测与解码：UTF-8（含 BOM）、UTF-16 LE/BE、GBK |
 | `main.tscn` | 主界面场景 |
 | `read.tscn` | 阅读界面场景 |
-| `assets/` | StyleBox 资源与打包字体，字体授权见 `assets/fonts/licenses/` |
+| `assets/` | StyleBox 资源、打包字体（授权见 `assets/fonts/licenses/`）与 GBK 码表 `assets/encoding/gbk_table.bin` |
 | `languages/` | 翻译源 `languages.csv` 及导出的 `.translation` |
 | `export_presets.cfg` | Windows Desktop 导出预设 |
 
@@ -102,10 +104,32 @@ scons godot-docrender platform=windows target=template_release arch=x86_64
 
 按 F5 运行，主场景为 `main.tscn`。
 
+## 文件编码
+
+打开文件时会自动识别编码，不要求是 UTF-8。判定按下表顺序进行，命中即停止：
+
+| 顺序 | 判定依据 | 处理 |
+| --- | --- | --- |
+| 1 | 开头为 `EF BB BF` | 按 UTF-8 解码并去掉 BOM |
+| 2 | 开头为 `FF FE` / `FE FF` | 按 UTF-16 LE / BE 解码 |
+| 3 | 整份内容通过 UTF-8 校验 | 按 UTF-8 解码 |
+| 4 | 其余情况 | 按 GBK 解码 |
+
+GBK 走 `assets/encoding/gbk_table.bin` 码表，收录 21791 个有效的双字节映射，覆盖 GB2312 与 GBK 常用汉字。因此在 Windows 下用记事本以「ANSI」保存、或用 VS Code 以 GBK 保存的中文 Markdown 可以直接打开，不再出现乱码。
+
+码表不是 Godot 资源，不在资源依赖图内。`export_presets.cfg` 的 `include_filter` 已配置 `*.bin`，导出时会一并打包 —— 自行新增或替换码表文件时，注意不要移除该过滤规则，否则导出后的程序会丢失编码支持。
+
+已知边界：
+
+- GB18030 的四字节扩展区未收录，落在该区的生僻字会显示为 `�`
+- 编码探测以整份文件为单位。同一文件内混用 UTF-8 与 GBK 时无法正确解码，会整体按其中一种处理
+- 无 BOM 的 UTF-16 无法可靠识别，会被当作 UTF-8 或 GBK
+
 ## 已知限制
 
 - 仓库不含插件二进制。若 `addons/docrender/bin/` 缺少 `template_debug` 对应的库，编辑器内的 docrender 功能与 debug 导出都不可用。
-- 阅读内容来自本地文件，未做外部链接、图片等资源的加载处理。
+- 图片按项目根解析。打开文件时没有把该文件所在目录传给渲染器（`image_base_dir` 与 `html_file_base_dir` 均为默认空值），相对路径的图片不会被解析到 `.md` 旁边；只有能被 `ResourceLoader` 在项目内找到的图片才会显示，找不到时回落为破损图标。
+- 外部链接会真实打开浏览器。`http` / `https` 链接点击后经 `OS.shell_open()` 交给系统默认浏览器，对应插件属性 `open_external_links` 默认为 `true`，本项目没有关闭它。
 
 ## 许可证
 
