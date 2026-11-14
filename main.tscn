@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bn66xv2d31a8m"]
+
+[ext_resource type="Script" uid="uid://bgcvib1xtyp51" path="res://control.gd" id="1_ig7tw"]
+[ext_resource type="Theme" uid="uid://7q5uo74a5uj0" path="res://assets/panel.tres" id="2_h2yge"]
+[ext_resource type="Theme" uid="uid://cx44hebjla23k" path="res://assets/button.tres" id="3_1bvp3"]
+
+[node name="Control" type="Control" unique_id=752627814]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ig7tw")
+
+[node name="Panel" type="Panel" parent="." unique_id=74279140]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_h2yge")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=249877131]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="loadfilebutton" type="Button" parent="Panel/VBoxContainer" unique_id=2014676151]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_1bvp3")
+theme_override_font_sizes/font_size = 24
+text = "UI_choose_file"
+
+[node name="quitButton" type="Button" parent="Panel/VBoxContainer" unique_id=1472435275]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_1bvp3")
+text = "UI_quit"
+
+[node name="FileDialog" type="FileDialog" parent="Panel" unique_id=1914773486]
+unique_name_in_owner = true
+title = "Open a File"
+file_mode = 0
+access = 2
+use_native_dialog = true
+
+[connection signal="pressed" from="Panel/VBoxContainer/loadfilebutton" to="." method="_on_loadfilebutton_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/quitButton" to="." method="_on_quit_button_pressed"]

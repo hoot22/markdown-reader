@@ -1,0 +1,16 @@
+[gd_resource type="Theme" format=3 uid="uid://c4aod53acxvla"]
+
+[ext_resource type="FontFile" uid="uid://p8dve3hj4wpk" path="res://assets/fonts/variable/MonaSansVF[opsz,wght].ttf" id="1_obnsm"]
+
+[sub_resource type="StyleBox" id="StyleBox_48kj0"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
+metadata/_custom_type_script = "uid://bkl6g25jwb47h"
+
+[resource]
+TabContainer/fonts/font = ExtResource("1_obnsm")
+TabContainer/styles/panel = SubResource("StyleBox_48kj0")

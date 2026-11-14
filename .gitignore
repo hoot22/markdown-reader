@@ -1,0 +1,21 @@
+# Godot 4 引擎数据与导入缓存
+.godot/
+/android/
+
+# 构建与导出产物
+.build/
+/build/
+/export/
+*.pck
+
+# 第三方插件：由上游仓库安装，见 README
+addons/
+
+# Daedalus 运行时 / 终端缓存
+.daedalus/
+.daedalus-terminal/
+
+# 系统与编辑器噪声
+.DS_Store
+Thumbs.db
+*.tmp

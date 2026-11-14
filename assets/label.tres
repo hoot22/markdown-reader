@@ -1,0 +1,24 @@
+[gd_resource type="Theme" format=3 uid="uid://gehy1u476px6"]
+
+[ext_resource type="FontFile" uid="uid://p8dve3hj4wpk" path="res://assets/fonts/variable/MonaSansVF[opsz,wght].ttf" id="1_hgv2j"]
+
+[resource]
+BodyLabel/base_type = &"Label"
+BodyLabel/colors/font_color = Color(0.627451, 0.627451, 0.627451, 1)
+BodyLabel/font_sizes/font_size = 16
+BodyLabel/fonts/font = ExtResource("1_hgv2j")
+DialogTitleLabel/base_type = &"Label"
+DialogTitleLabel/colors/font_color = Color(0.5882353, 0.5882353, 0.5882353, 1)
+DialogTitleLabel/font_sizes/font_size = 14
+DialogTitleLabel/fonts/font = ExtResource("1_hgv2j")
+HeaderLabel/base_type = &"Label"
+HeaderLabel/colors/font_color = Color(0.627451, 0.627451, 0.627451, 1)
+HeaderLabel/font_sizes/font_size = 24
+HeaderLabel/fonts/font = ExtResource("1_hgv2j")
+Label/colors/font_color = Color(0.627451, 0.627451, 0.627451, 1)
+Label/font_sizes/font_size = 24
+Label/fonts/font = ExtResource("1_hgv2j")
+SubtitleLabel/base_type = &"Label"
+SubtitleLabel/colors/font_color = Color(0.627451, 0.627451, 0.627451, 1)
+SubtitleLabel/font_sizes/font_size = 16
+SubtitleLabel/fonts/font = ExtResource("1_hgv2j")
