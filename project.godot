@@ -42,3 +42,4 @@ locale/translations=PackedStringArray("res://languages/languages.zh_CN.translati
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

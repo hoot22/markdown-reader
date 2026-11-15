@@ -1,7 +1,7 @@
 # Markdown Reader
 
 用 Godot 4.7 写的Windows Markdown 阅读器：打开一个 `.md` 文件，就能以渲染后的样式阅读。
-
+![Markdown reader read](./docs/read.png)
 ## 功能
 
 - 启动进入主界面，支持通过点击文件选择按钮/拖放/命令行打开.md文件

@@ -1,13 +1,13 @@
 extends Control
 
 const TextCodec: GDScript = preload("res://text_codec.gd")
+const MarkdownImagePaths: GDScript = preload("res://markdown_image_paths.gd")
 const MAX_BYTES: int = 8 * 1024 * 1024
 const MARKDOWN_EXTENSIONS: Array[String] = ["md", "markdown"]
 
 func _ready() -> void:
 	%FileDialog.file_selected.connect(_on_file_selected)
 	get_window().files_dropped.connect(_on_files_dropped)
-	# 启动参数里带了 Markdown 路径时直接进阅读页
 	var cmdline_path: String = _md_from_cmdline()
 	if not cmdline_path.is_empty():
 		_on_file_selected.call_deferred(cmdline_path)
@@ -47,7 +47,9 @@ func _on_file_selected(path: String) -> void:
 		return
 	var content: String = TextCodec.decode(file.get_buffer(file_size))
 	file.close()
-	Content.markdown_content = content
+	# 相对路径的图片按 .md 所在目录补成绝对路径
+	var base_dir: String = path.replace("\\", "/").get_base_dir()
+	Content.markdown_content = MarkdownImagePaths.rewrite(content, base_dir)
 	get_tree().change_scene_to_file("res://read.tscn")
 
 

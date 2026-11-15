@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bgcvib1xtyp51" path="res://control.gd" id="1_ig7tw"]
 [ext_resource type="Theme" uid="uid://7q5uo74a5uj0" path="res://assets/panel.tres" id="2_h2yge"]
 [ext_resource type="Theme" uid="uid://cx44hebjla23k" path="res://assets/button.tres" id="3_1bvp3"]
+[ext_resource type="Theme" uid="uid://gehy1u476px6" path="res://assets/label.tres" id="3_lquwl"]
 
 [node name="Control" type="Control" unique_id=752627814]
 layout_mode = 3
@@ -21,6 +22,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_h2yge")
+theme_type_variation = &"backpanel"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=249877131]
 layout_mode = 1
@@ -35,6 +37,11 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=52581834]
+layout_mode = 2
+theme = ExtResource("3_lquwl")
+text = "Markdown reader"
 
 [node name="loadfilebutton" type="Button" parent="Panel/VBoxContainer" unique_id=2014676151]
 unique_name_in_owner = true

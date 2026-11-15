@@ -1,8 +1,8 @@
 [gd_resource type="Theme" format=3 uid="uid://gehy1u476px6"]
 
 [ext_resource type="FontVariation" uid="uid://b2u305a53vjax" path="res://assets/fonts/MonaSansVF_sc.tres" id="1_hgv2j"]
-[ext_resource type="FontVariation" path="res://assets/fonts/MonaSansVF_bold.tres" id="2_bold"]
-[ext_resource type="FontVariation" path="res://assets/fonts/MonaSansMono.tres" id="3_mono"]
+[ext_resource type="FontVariation" uid="uid://br3dox0ipvwhw" path="res://assets/fonts/MonaSansVF_bold.tres" id="2_bold"]
+[ext_resource type="FontVariation" uid="uid://cabvw4tlphdnv" path="res://assets/fonts/MonaSansMono.tres" id="3_mono"]
 
 [resource]
 default_font_size = 18

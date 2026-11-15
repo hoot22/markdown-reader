@@ -52,6 +52,8 @@ theme = ExtResource("3_b6fi6")
 text = "UI_back"
 
 [node name="MarkdownLabel" type="MarkdownLabel" parent="Panel/MarginContainer/VBoxContainer" unique_id=656209825]
+parse_latex = true
+parse_html = true
 parse_mermaid = true
 context_menu_enabled = true
 unique_name_in_owner = true
