@@ -2,6 +2,7 @@
 
 用 Godot 4.7 写的Windows Markdown 阅读器：打开一个 `.md` 文件，就能以渲染后的样式阅读。
 ![Markdown reader read](./docs/read.png)
+
 ## 功能
 
 - 启动进入主界面，支持通过点击文件选择按钮/拖放/命令行打开.md文件
@@ -13,27 +14,29 @@
 
 ## 目录结构
 
-| 路径 | 说明 |
-| --- | --- |
-| `project.godot` | 项目配置：1920×1080、`canvas_items` 拉伸、`mobile` 渲染器 |
-| `content.gd` | 自动加载单例 `Content`，暂存待阅读的 Markdown 文本 |
-| `control.gd` | 主界面逻辑：打开文件对话框、读取文件、切换场景、退出 |
-| `read.gd` | 阅读界面逻辑：把 `Content.markdown_content` 交给 `MarkdownLabel` 显示 |
-| `text_codec.gd` | 编码探测与解码：UTF-8（含 BOM）、UTF-16 LE/BE、GBK |
-| `main.tscn` | 主界面场景 |
-| `read.tscn` | 阅读界面场景 |
-| `assets/` | StyleBox 资源、打包字体（授权见 `assets/fonts/licenses/`）与 GBK 码表 `assets/encoding/gbk_table.bin` |
-| `languages/` | 翻译源 `languages.csv` 及导出的 `.translation` |
-| `export_presets.cfg` | Windows Desktop 导出预设 |
+
+| 路径                 | 说明                                                                                                 |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| `project.godot`      | 项目配置：1920×1080、`canvas_items` 拉伸、`mobile` 渲染器                                           |
+| `content.gd`         | 自动加载单例`Content`，暂存待阅读的 Markdown 文本                                                    |
+| `control.gd`         | 主界面逻辑：打开文件对话框、读取文件、切换场景、退出                                                 |
+| `read.gd`            | 阅读界面逻辑：把`Content.markdown_content` 交给 `MarkdownLabel` 显示                                 |
+| `text_codec.gd`      | 编码探测与解码：UTF-8（含 BOM）、UTF-16 LE/BE、GBK                                                   |
+| `main.tscn`          | 主界面场景                                                                                           |
+| `read.tscn`          | 阅读界面场景                                                                                         |
+| `assets/`            | StyleBox 资源、打包字体（授权见`assets/fonts/licenses/`）与 GBK 码表 `assets/encoding/gbk_table.bin` |
+| `languages/`         | 翻译源`languages.csv` 及导出的 `.translation`                                                        |
+| `export_presets.cfg` | Windows Desktop 导出预设                                                                             |
 
 ## 依赖的第三方插件
 
 本仓库**不包含** `addons/` 目录。克隆后需要按下面两个上游仓库自行安装，否则编辑器插件和 Markdown 渲染都不可用。
 
-| 插件 | 上游仓库 | 作用 |
-| --- | --- | --- |
-| docrender | <https://github.com/LuYingYiLong/godot-docrender> | GDExtension，提供 `MarkdownLabel` 节点与 Markdown 导入器，负责正文渲染 |
-| StyleboxFancy | <https://github.com/MellowDye/StyleBoxFancy> | 提供 `StyleBoxFancy` 资源类型与编辑器工具，负责界面样式（本项目使用 1.3.5） |
+
+| 插件          | 上游仓库                                                                                           | 作用                                                                       |
+| ------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| docrender     | [https://github.com/LuYingYiLong/godot-docrender](https://github.com/LuYingYiLong/godot-docrender) | GDExtension，提供`MarkdownLabel` 节点与 Markdown 导入器，负责正文渲染      |
+| StyleboxFancy | [https://github.com/MellowDye/StyleBoxFancy](https://github.com/MellowDye/StyleBoxFancy)           | 提供`StyleBoxFancy` 资源类型与编辑器工具，负责界面样式（本项目使用 1.3.5） |
 
 ## 安装
 
@@ -108,12 +111,13 @@ scons godot-docrender platform=windows target=template_release arch=x86_64
 
 打开文件时会自动识别编码，不要求是 UTF-8。判定按下表顺序进行，命中即停止：
 
-| 顺序 | 判定依据 | 处理 |
-| --- | --- | --- |
-| 1 | 开头为 `EF BB BF` | 按 UTF-8 解码并去掉 BOM |
-| 2 | 开头为 `FF FE` / `FE FF` | 按 UTF-16 LE / BE 解码 |
-| 3 | 整份内容通过 UTF-8 校验 | 按 UTF-8 解码 |
-| 4 | 其余情况 | 按 GBK 解码 |
+
+| 顺序 | 判定依据                | 处理                    |
+| ---- | ----------------------- | ----------------------- |
+| 1    | 开头为`EF BB BF`        | 按 UTF-8 解码并去掉 BOM |
+| 2    | 开头为`FF FE` / `FE FF` | 按 UTF-16 LE / BE 解码  |
+| 3    | 整份内容通过 UTF-8 校验 | 按 UTF-8 解码           |
+| 4    | 其余情况                | 按 GBK 解码             |
 
 GBK 走 `assets/encoding/gbk_table.bin` 码表，收录 21791 个有效的双字节映射，覆盖 GB2312 与 GBK 常用汉字。因此在 Windows 下用记事本以「ANSI」保存、或用 VS Code 以 GBK 保存的中文 Markdown 可以直接打开，不再出现乱码。
 
@@ -128,7 +132,6 @@ GBK 走 `assets/encoding/gbk_table.bin` 码表，收录 21791 个有效的双字
 ## 已知限制
 
 - 仓库不含插件二进制。若 `addons/docrender/bin/` 缺少 `template_debug` 对应的库，编辑器内的 docrender 功能与 debug 导出都不可用。
-- 图片按项目根解析。打开文件时没有把该文件所在目录传给渲染器（`image_base_dir` 与 `html_file_base_dir` 均为默认空值），相对路径的图片不会被解析到 `.md` 旁边；只有能被 `ResourceLoader` 在项目内找到的图片才会显示，找不到时回落为破损图标。
 - 外部链接会真实打开浏览器。`http` / `https` 链接点击后经 `OS.shell_open()` 交给系统默认浏览器，对应插件属性 `open_external_links` 默认为 `true`，本项目没有关闭它。
 
 ## 许可证
